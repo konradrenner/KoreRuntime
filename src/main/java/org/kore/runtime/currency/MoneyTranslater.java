@@ -26,5 +26,12 @@ import java.util.Currency;
  */
 public interface MoneyTranslater {
 
+    /**
+     * Creates a new Money instance in the given currency.
+     *
+     * @param money
+     * @param currency
+     * @return Money
+     */
     Money translate(Money money, Currency currency);
 }
