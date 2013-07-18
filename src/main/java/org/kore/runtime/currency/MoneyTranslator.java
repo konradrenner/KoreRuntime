@@ -24,7 +24,7 @@ import java.util.Currency;
  *
  * @author Konrad Renner
  */
-public interface MoneyTranslater {
+public interface MoneyTranslator {
 
     /**
      * Creates a new Money instance in the given currency.
