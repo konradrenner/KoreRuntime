@@ -18,8 +18,11 @@
  */
 package org.kore.runtime.base;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -29,19 +32,23 @@ public class ScalarTest {
 
     Scalar<String> underTest;
 
+
     @Before
     public void setUp() {
         underTest = new TestScalar("TEST");
     }
 
+    @Test
     public void testEqualsSameInstance() {
         assertTrue(underTest.equals(underTest));
     }
 
+    @Test
     public void testEqualsOK() {
         assertTrue(underTest.equals(new TestScalar("TEST")));
     }
 
+    @Test
     public void testEqualsDifferentType() {
 
         Scalar<String> scalar = new Scalar<String>() {
@@ -54,9 +61,47 @@ public class ScalarTest {
         assertFalse(underTest.equals(scalar));
     }
 
+    @Test
     public void testDifferentValue() {
-        assertTrue(underTest.equals(new TestScalar("TeST")));
+        assertFalse(underTest.equals(new TestScalar("TeST")));
     }
+
+    @Test
+    public void testCompareableEquals() {
+        assertTrue(underTest.compareTo(new TestScalar("TEST")) == 0);
+    }
+
+    @Test
+    public void testCompareableLower() {
+        IntegerScalar higher = new IntegerScalar(5);
+        IntegerScalar lower = new IntegerScalar(2);
+
+        assertTrue(lower.compareTo(higher) < 0);
+    }
+
+    @Test
+    public void testCompareableHigher() {
+        IntegerScalar higher = new IntegerScalar(5);
+        IntegerScalar lower = new IntegerScalar(2);
+
+        assertTrue(higher.compareTo(lower) > 0);
+    }
+
+    @Test
+    public void testCompareableList() {
+        ArrayList<IntegerScalar> liste = new ArrayList<IntegerScalar>(2);
+        liste.add(new IntegerScalar(5));
+        liste.add(new IntegerScalar(2));
+
+        Collections.sort(liste);
+        assertEquals(new IntegerScalar(2), liste.get(0));
+        assertEquals(new IntegerScalar(5), liste.get(1));
+
+        Collections.reverse(liste);
+        assertEquals(new IntegerScalar(5), liste.get(0));
+        assertEquals(new IntegerScalar(2), liste.get(1));
+    }
+
 
     class TestScalar extends Scalar<String> {
 
@@ -68,6 +113,20 @@ public class ScalarTest {
 
         @Override
         public String getValue() {
+            return value;
+        }
+    }
+
+    class IntegerScalar extends Scalar<Integer> {
+
+        private final int value;
+
+        public IntegerScalar(int value) {
+            this.value = value;
+        }
+
+        @Override
+        public Integer getValue() {
             return value;
         }
     }

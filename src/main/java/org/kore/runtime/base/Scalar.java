@@ -25,7 +25,7 @@ import java.util.Objects;
  *
  * @author Konrad Renner
  */
-public abstract class Scalar<T> {
+public abstract class Scalar<T extends Comparable<T>> implements Comparable<Scalar<T>> {
 
     public abstract T getValue();
 
@@ -52,5 +52,14 @@ public abstract class Scalar<T> {
     @Override
     public String toString() {
         return getClass().getName() + "{value=" + getValue() + "}";
+    }
+
+    @Override
+    public int compareTo(Scalar<T> o) {
+        if (this.equals(o)) {
+            return 0;
+        }
+
+        return getValue().compareTo(o.getValue());
     }
 }
