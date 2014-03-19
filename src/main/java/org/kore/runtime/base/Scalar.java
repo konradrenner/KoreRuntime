@@ -18,14 +18,18 @@
  */
 package org.kore.runtime.base;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Represents a type with a single property
+ * Represents a type with a single property. Warning: The equals method may not
+ * work, if you use the Scalar in a JPA Environment, where Proxies are used! You
+ * have to override it
  *
  * @author Konrad Renner
  */
-public abstract class Scalar<T extends Comparable<T>> implements Comparable<Scalar<T>> {
+public abstract class Scalar<T extends Comparable<? super T>>
+        implements Comparable<Scalar<T>>, Serializable {
 
     public abstract T getValue();
 
@@ -43,15 +47,13 @@ public abstract class Scalar<T extends Comparable<T>> implements Comparable<Scal
             return false;
         }
         final Scalar other = (Scalar) obj;
-        if (getValue() != other.getValue() && (getValue() == null || !getValue().equals(other.getValue()))) {
-            return false;
-        }
-        return true;
+        return Objects.equals(getValue(), other.getValue());
+
     }
 
     @Override
     public String toString() {
-        return getClass().getName() + "{value=" + getValue() + "}";
+        return getClass().getName() + "[value=" + getValue() + "]";
     }
 
     @Override
