@@ -19,54 +19,27 @@
 
 package org.kore.runtime.person;
 
-import java.io.Serializable;
+import java.util.Objects;
+import org.kore.runtime.base.Scalar;
 
 /**
  * Represents the titel of a person
  *
  * @author Konrad Renner
  */
-public final class Titel implements Serializable {
+public final class Titel extends Scalar<String> {
 
     private final String value;
 
     public Titel(String value) {
-        if (value == null) {
-            throw new IllegalArgumentException("Every arguement must be given");
-        }
+        Objects.requireNonNull(value, "Given value must not be null");
 
         this.value = value;
     }
 
+    @Override
     public String getValue() {
         return value;
     }
-
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.value != null ? this.value.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Titel other = (Titel) obj;
-        if ((this.value == null) ? (other.value != null) : !this.value.equals(other.value)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Titel{" + value + '}';
-    }
+      
 }

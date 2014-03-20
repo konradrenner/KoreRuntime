@@ -20,6 +20,7 @@
 package org.kore.runtime.person;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents the name of a person
@@ -32,9 +33,8 @@ public final class Name implements Serializable {
     private final String lastName;
 
     public Name(String firstName, String lastName) {
-        if (firstName == null || lastName == null) {
-            throw new IllegalArgumentException("Every arguement must be given");
-        }
+        Objects.requireNonNull(firstName, "firstName must not be null");
+        Objects.requireNonNull(lastName, "lastName must not be null");
         this.firstName = firstName;
         this.lastName = lastName;
     }
