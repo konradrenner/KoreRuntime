@@ -49,6 +49,18 @@ public class ScalarTest {
     }
 
     @Test
+    public void testEqualsProxyOK() {
+        ProxyBaseScalar base = new ProxyBaseScalar("Hallo");
+        assertTrue(base.equals(new ProxyScalar("Hallo")));
+    }
+
+    @Test
+    public void testEqualsProxyNOK() {
+        ProxyBaseScalar base = new ProxyBaseScalar("Hallo");
+        assertFalse(base.equals(new ProxyScalar("hallo")));
+    }
+
+    @Test
     public void testEqualsDifferentType() {
 
         Scalar<String> scalar = new Scalar<String>() {
@@ -128,6 +140,27 @@ public class ScalarTest {
         @Override
         public Integer getValue() {
             return value;
+        }
+    }
+
+    @ScalarProxySupport
+    class ProxyBaseScalar extends Scalar<String> {
+
+        private final String value;
+
+        public ProxyBaseScalar(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+    }
+
+    class ProxyScalar extends ProxyBaseScalar {
+        public ProxyScalar(String value) {
+            super(value);
         }
     }
 }

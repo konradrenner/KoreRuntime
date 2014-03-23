@@ -23,10 +23,12 @@ import java.util.Objects;
 
 /**
  * Represents a type with a single property. Warning: The equals method may not
- * work, if you use the Scalar in a JPA Environment, where Proxies are used! You
- * have to override it
+ * work, if you use the Scalar in a JPA Environment, where Proxies are used. If
+ * you want to activate it, you have to use the {@link ScalarProxySupport}
+ * Annotation
  *
  * @author Konrad Renner
+ * @see ScalarProxySupport
  */
 public abstract class Scalar<T extends Comparable<? super T>>
         implements Comparable<Scalar<T>>, Serializable {
@@ -43,12 +45,27 @@ public abstract class Scalar<T extends Comparable<? super T>>
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+        if (getClass().isAnnotationPresent(ScalarProxySupport.class) && getClass().getAnnotation(ScalarProxySupport.class).equalsSupport()) {
+            if (negativeClassCheckWithProxySupport(obj)) {
+                return false;
+            }
+        } else {
+            if (negativeClassCheckWithoutProxySupport(obj)) {
+                return false;
+            }
         }
         final Scalar other = (Scalar) obj;
         return Objects.equals(getValue(), other.getValue());
 
+    }
+    
+    boolean negativeClassCheckWithProxySupport(Object obj) {
+        
+        return !getClass().isAssignableFrom(obj.getClass());
+    }
+
+    private boolean negativeClassCheckWithoutProxySupport(Object obj) {
+        return getClass() != obj.getClass();
     }
 
     @Override
