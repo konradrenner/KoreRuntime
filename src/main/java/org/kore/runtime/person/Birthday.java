@@ -34,9 +34,9 @@ public class Birthday extends Scalar<Date> {
     public Birthday(Date birthday) {
         Objects.requireNonNull(birthday, "birthday value must not be null");
         if (birthday.after(new Date())) {
-            throw new IllegalStateException("birthday must not be after now");
+            throw new IllegalArgumentException("birthday must not be after now");
         }
-        this.birthday = birthday;
+        this.birthday = new Date(birthday.getTime());
     }
 
     @Override
@@ -44,12 +44,35 @@ public class Birthday extends Scalar<Date> {
         return new Date(birthday.getTime());
     }
 
+    /**
+     * Returns the difference in years between the birthday and now
+     *
+     * @return int - Age
+     */
     public int getAge() {
+        return getAge(new Date());
+    }
+
+    /**
+     * Returns the difference in years between the birthday and the given date.
+     * Throws an IllegalArgumentException if the given date, is before the date
+     * of the Birthday Object
+     *
+     * @return int - Age
+     * @see IllegalArgumentException
+     */
+    public int getAge(Date date) {
+        Objects.requireNonNull(date, "given date must not be null");
+        if (date.before(birthday)) {
+            throw new IllegalArgumentException("given date must not be before the birthday");
+        }
+
+
         Calendar day = Calendar.getInstance();
         day.setTime(birthday);
 
         Calendar now = Calendar.getInstance();
-        now.setTime(new Date());
+        now.setTime(date);
         return calculateAge(day, now);
     }
 
