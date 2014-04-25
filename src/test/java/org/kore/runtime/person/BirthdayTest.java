@@ -64,7 +64,7 @@ public class BirthdayTest {
         assertEquals(2, Birthday.calculateAge(birthday, now));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCreateBirthdayIllegalState() {
         Calendar cal = new GregorianCalendar(2800, 2, 5);
         Birthday birthday = new Birthday(cal.getTime());
