@@ -4,12 +4,12 @@ env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "OUP6TVhFPvuaBZFr+BI0WKIHkJMgMVecRTsat+oQkrJwXlYJr7ghZAipraNm/CjFlw3pAOCFY83y/pNO01koj9UJGeQE6sotAkLM4qpE7y/biJYAkoUL5Wy7dkTJNar52bW6rpFB6FU6m+vWaDf9H6QKWkvN/uFFPfImx8C0Quc="
+   - secure: "FCWs62DW1axPjKI8kg7JPN07mS9a2cr11k8YnB/juyBP9dz3EsBvN97q+Ylgb3AKBK2GFvoNdCfrDtDxzVGXMCIjqypHADAxVYdZiLogalghdKB3tro5Yd+xzYhfAbZ2JdEvE6MQWoJC6p/Wdw9dHy2X5OO3i4WSSncnEJYs9Ik="
 
 addons:
   coverity_scan:
     project:
-      name: "konradrenner/stammdaten"
+      name: "konradrenner/KoreRuntime"
       description: "Your project description here"
     notification_email: koni.renner@gmail.com
     build_command_prepend:
