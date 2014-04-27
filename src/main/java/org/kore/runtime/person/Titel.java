@@ -29,7 +29,11 @@ import org.kore.runtime.base.Scalar;
  */
 public final class Titel extends Scalar<String> {
 
-    private final String value;
+    private String value;
+
+    Titel() {
+        //Constructor for Frameworks
+    }
 
     public Titel(String value) {
         Objects.requireNonNull(value, "Given value must not be null");

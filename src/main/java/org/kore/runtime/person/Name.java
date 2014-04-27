@@ -29,8 +29,12 @@ import java.util.Objects;
  */
 public final class Name implements Serializable {
 
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
+
+    Name() {
+        //Constructor for Frameworks
+    }
 
     public Name(String firstName, String lastName) {
         Objects.requireNonNull(firstName, "firstName must not be null");

@@ -28,8 +28,12 @@ import java.util.Currency;
  */
 public final class Money implements Serializable {
 
-    private final BigDecimal amount;
-    private final Currency currency;
+    private BigDecimal amount;
+    private Currency currency;
+
+    Money() {
+        //Constructor for Frameworks
+    }
 
     public Money(BigDecimal amount, Currency currency) {
         if (amount == null || currency == null) {

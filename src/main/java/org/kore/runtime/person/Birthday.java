@@ -29,7 +29,11 @@ import org.kore.runtime.base.Scalar;
  */
 public class Birthday extends Scalar<Date> {
 
-    private final Date birthday;
+    private Date birthday;
+
+    Birthday() {
+        //Constructor for Frameworks
+    }
 
     public Birthday(Date birthday) {
         Objects.requireNonNull(birthday, "birthday value must not be null");
