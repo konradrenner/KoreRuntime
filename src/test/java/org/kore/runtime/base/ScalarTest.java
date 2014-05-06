@@ -55,6 +55,12 @@ public class ScalarTest {
     }
 
     @Test
+    public void testEqualsProxyReverted() {
+        ProxyBaseScalar base = new ProxyBaseScalar("Hallo");
+        assertFalse(new ProxyScalar("Hallo").equals(base));
+    }
+
+    @Test
     public void testEqualsProxyNOK() {
         ProxyBaseScalar base = new ProxyBaseScalar("Hallo");
         assertFalse(base.equals(new ProxyScalar("hallo")));

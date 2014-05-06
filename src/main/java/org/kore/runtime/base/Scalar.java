@@ -42,7 +42,7 @@ public abstract class Scalar<T extends Comparable<? super T>>
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == null || !(obj instanceof Scalar)) {
             return false;
         }
         if (getClass().isAnnotationPresent(ScalarProxySupport.class) && getClass().getAnnotation(ScalarProxySupport.class).equalsSupport()) {
