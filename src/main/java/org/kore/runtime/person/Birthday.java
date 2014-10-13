@@ -24,12 +24,15 @@ import java.util.Objects;
 import org.kore.runtime.base.Scalar;
 
 /**
+ * Represents the Birthday of a person. Note: for hashCode and equals is just
+ * the date of the birthday relevant, not the time of the internal Date Object
  *
  * @author Konrad Renner
  */
 public class Birthday extends Scalar<Date> {
 
     private Date birthday;
+    private String concatedDate;
 
     Birthday() {
         //Constructor for Frameworks
@@ -89,6 +92,43 @@ public class Birthday extends Scalar<Date> {
 
         return isBirthday(day, now);
     }
+
+    @Override
+    public int hashCode() {
+        initConcatedDate();
+        return concatedDate.hashCode();
+    }
+
+    void initConcatedDate() {
+        if (concatedDate == null) {
+            StringBuilder sb = new StringBuilder();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(birthday);
+            sb.append(cal.get(Calendar.DAY_OF_MONTH));
+            sb.append(cal.get(Calendar.MONTH));
+            sb.append(cal.get(Calendar.YEAR));
+
+            concatedDate = sb.toString();
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Birthday other = (Birthday) obj;
+        initConcatedDate();
+        other.initConcatedDate();
+        if (!Objects.equals(this.concatedDate, other.concatedDate)) {
+            return false;
+        }
+        return true;
+    }
+
 
     static int calculateAge(Calendar day, Calendar now) {
         int ret = now.get(Calendar.YEAR) - day.get(Calendar.YEAR);
