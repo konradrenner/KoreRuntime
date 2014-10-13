@@ -27,7 +27,7 @@ import java.util.Objects;
  *
  * @author Konrad Renner
  */
-public final class Name implements Serializable {
+public class Name implements Serializable {
 
     private String firstName;
     private String lastName;

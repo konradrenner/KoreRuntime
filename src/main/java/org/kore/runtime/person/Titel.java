@@ -27,7 +27,7 @@ import org.kore.runtime.base.Scalar;
  *
  * @author Konrad Renner
  */
-public final class Titel extends Scalar<String> {
+public class Titel extends Scalar<String> {
 
     private String value;
 

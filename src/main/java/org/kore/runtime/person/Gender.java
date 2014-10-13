@@ -9,7 +9,7 @@ package org.kore.runtime.person;
  * @author koni
  */
 public enum Gender {
-
+    OTHER,
     MALE,
     FEMALE;
 }
